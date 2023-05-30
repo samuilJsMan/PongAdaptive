@@ -1,0 +1,191 @@
+/* ---------- Null__list ---------- */
+* {
+  padding: 0;
+  margin: 0;
+  border: 0; }
+
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+:focus, :active {
+  outline: none; }
+
+a:focus, a:active {
+  outline: none; }
+
+nav, footer, header, aside {
+  display: block; }
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%; }
+
+input, button, textarea {
+  font-family: inherit; }
+
+input::-ms-clear {
+  display: none; }
+
+button {
+  cursor: pointer; }
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0; }
+
+a, a:visited {
+  text-decoration: none;
+  color: inherit; }
+
+a:hover {
+  text-decoration: none; }
+
+ul li {
+  list-style: none; }
+
+img {
+  vertical-align: top; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit; }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0; }
+
+/* ---------- Main__list ---------- */
+body {
+  background: -webkit-linear-gradient(315deg, #52d38e 0%, #0f69bd 100%);
+  background: -o-linear-gradient(315deg, #52d38e 0%, #0f69bd 100%);
+  background: linear-gradient(135deg, #52d38e 0%, #0f69bd 100%);
+  -ms-touch-action: manipulation;
+  touch-action: manipulation; }
+  body .wrapper {
+    width: 800px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); }
+    body .wrapper .butt {
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      left: 50%;
+      background: inherit;
+      width: 0;
+      height: 0;
+      border-top: 100px solid transparent;
+      border-bottom: 100px solid transparent;
+      border-right: 100px solid white;
+      display: none;
+      -webkit-tap-highlight-color: transparent; }
+    body .wrapper .p1Up {
+      -webkit-transform: translate(-700px, -200px) rotate(90deg);
+      -ms-transform: translate(-700px, -200px) rotate(90deg);
+      transform: translate(-700px, -200px) rotate(90deg); }
+    body .wrapper .p1Down {
+      -webkit-transform: translate(-700px, 0px) rotate(270deg);
+      -ms-transform: translate(-700px, 0px) rotate(270deg);
+      transform: translate(-700px, 0px) rotate(270deg); }
+    body .wrapper .p2Up {
+      -webkit-transform: translate(600px, -200px) rotate(90deg);
+      -ms-transform: translate(600px, -200px) rotate(90deg);
+      transform: translate(600px, -200px) rotate(90deg); }
+    body .wrapper .p2Down {
+      -webkit-transform: translate(600px, 0px) rotate(270deg);
+      -ms-transform: translate(600px, 0px) rotate(270deg);
+      transform: translate(600px, 0px) rotate(270deg); }
+    body .wrapper .title {
+      text-align: center;
+      font-size: 30px;
+      margin: 0px 0px 20px 0px;
+      font-weight: 600;
+      font-family: sans-serif;
+      color: white; }
+    body .wrapper .buttons {
+      text-align: center;
+      margin-bottom: 20px; }
+      body .wrapper .buttons .button {
+        border-radius: 10px;
+        color: white;
+        background: inherit;
+        border: 1px solid white;
+        width: 100px;
+        height: 30px;
+        font-size: 20px;
+        text-align: center;
+        font-size: 20px;
+        -webkit-tap-highlight-color: transparent; }
+      body .wrapper .buttons .start {
+        margin-right: 20px; }
+    body .wrapper .gameSpace {
+      width: 100%;
+      height: 700px;
+      border: 10px solid white;
+      position: relative; }
+      body .wrapper .gameSpace .bar {
+        background: white;
+        width: 20px;
+        height: 150px;
+        position: absolute;
+        z-index: 1; }
+      body .wrapper .gameSpace .score {
+        font-size: 100px;
+        color: white;
+        position: absolute;
+        -webkit-transform: translate(-50%, 0);
+        -ms-transform: translate(-50%, 0);
+        transform: translate(-50%, 0); }
+      body .wrapper .gameSpace .p1Bar {
+        bottom: 340px;
+        left: 5px;
+        -webkit-transform: translate(0, 50%);
+        -ms-transform: translate(0, 50%);
+        transform: translate(0, 50%);
+        border-radius: 0 20px 20px 0; }
+      body .wrapper .gameSpace .p2Bar {
+        bottom: 340px;
+        right: -15px;
+        -webkit-transform: translate(-100%, 50%);
+        -ms-transform: translate(-100%, 50%);
+        transform: translate(-100%, 50%);
+        border-radius: 20px 0 0 20px; }
+      body .wrapper .gameSpace .p1Score {
+        left: 25%; }
+      body .wrapper .gameSpace .p2Score {
+        left: 75%; }
+      body .wrapper .gameSpace .separationBar {
+        position: absolute;
+        left: 50%;
+        border-left: 10px dashed white;
+        height: 100%;
+        -webkit-transform: translate(-50%, 0);
+        -ms-transform: translate(-50%, 0);
+        transform: translate(-50%, 0); }
+      body .wrapper .gameSpace .gameSpaceInner {
+        height: 100%;
+        width: 100%; }
+        body .wrapper .gameSpace .gameSpaceInner .ball {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          background: inherit;
+          position: absolute;
+          top: 0%;
+          left: 0%;
+          -webkit-transform: translate(375px, 325px);
+          -ms-transform: translate(375px, 325px);
+          transform: translate(375px, 325px);
+          background: red; }

@@ -114,10 +114,8 @@ function repeatKey(event){
 }
 
 let isMobile=/mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase());
-let isTablet=/tablet|ipad|android|kindle/i.test(navigator.userAgent.toLowerCase());
-let isDesktop=!isMobile&&!isTablet;
 
-if(||window.innerWith<768){
+if(isMobile||window.innerWith<768){
 	let wrapper=document.querySelector(`.wrapper`),
 		buttons=document.querySelectorAll(`.button`), 
 		butt=document.querySelectorAll(`.butt`),

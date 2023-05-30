@@ -117,7 +117,7 @@ let isMobile=/mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.t
 let isTablet=/tablet|ipad|android|kindle/i.test(navigator.userAgent.toLowerCase());
 let isDesktop=!isMobile&&!isTablet;
 
-if(isMobile){
+if(||window.innerWith<768){
 	let wrapper=document.querySelector(`.wrapper`),
 		buttons=document.querySelectorAll(`.button`), 
 		butt=document.querySelectorAll(`.butt`),

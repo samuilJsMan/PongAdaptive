@@ -114,6 +114,7 @@ function repeatKey(event){
 }
 
 let isMobile=/mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase());
+let mediaQueryList = window.matchMedia("(max-width: 767px)")
 
 if(isMobile||window.innerWith<768||mediaQueryList.matches){
 	let wrapper=document.querySelector(`.wrapper`),

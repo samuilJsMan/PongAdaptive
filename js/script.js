@@ -115,7 +115,7 @@ function repeatKey(event){
 
 let isMobile=/mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase());
 
-if(isMobile||window.innerWith<768){
+if(isMobile||window.innerWith<768||mediaQueryList.matches){
 	let wrapper=document.querySelector(`.wrapper`),
 		buttons=document.querySelectorAll(`.button`), 
 		butt=document.querySelectorAll(`.butt`),
@@ -123,6 +123,8 @@ if(isMobile||window.innerWith<768){
 		p1Down=document.querySelector(`.p1Down`),
 		p2Up=document.querySelector(`.p2Up`),
 		p2Down=document.querySelector(`.p2Down`)
+	
+	body.style.background=`black`
 
 	p1Up.addEventListener(`click`,function(event){if(stoped==0&&p1BarCord<=595){p1Bar.style.bottom=`${p1BarCord+=15}px`}})	
 	p1Down.addEventListener(`click`,function(event){if(stoped==0&&p1BarCord>=85){p1Bar.style.bottom=`${p1BarCord-=15}px`}})

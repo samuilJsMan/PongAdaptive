@@ -4,8 +4,11 @@ let p1Bar=document.querySelector(`.p1Bar`),p2Bar=document.querySelector(`.p2Bar`
 	ball=document.querySelector('.ball'), button=document.querySelector(`.start`), 
 	p1Score=document.querySelector(`.p1Score`),	p2Score=document.querySelector(`.p2Score`), 
 	restart=document.querySelector(`.restart`), gameSpaceInner=document.querySelector(`.gameSpaceInner`),
-	keyRepeatDelay=0, keyRepeatInterval=10, keyDownTimer=null, startAngle=0, angle, speed, x,
-	y, score=[0,0], stoped=1, p2BarCord, p1BarCord, p1BarPos, p2BarPos, body=document.querySelector(`body`)
+	keyRepeatDelay=0, keyRepeatInterval=10, keyDownTimer=null, startAngle=0, angle, speed, x, stopIt=0, pc,
+	y, score=[0,0], stoped=1, p2BarCord, p1BarCord, p1BarPos, p2BarPos, body=document.querySelector(`body`),
+	handleKeyDown, handleKeyUp, repeatKey
+
+document.addEventListener('contextmenu',function(event){event.preventDefault();});
 
 toNull()
 
@@ -21,26 +24,32 @@ function startEnter(){if(event.code==`Enter`){startClick()}}
 function stopEnter(){if(event.code==`Enter`){stopClick()}}
 
 function startClick(){
-	stoped=0;button.innerHTML=`Stop`
+	stoped=0;button.innerHTML=`Stop`; stopIt=0
 	button.removeEventListener('mousedown',startClick)
 	document.removeEventListener(`keydown`, startEnter)
 	button.addEventListener('mousedown',stopClick)
 	document.addEventListener(`keydown`, stopEnter)
-	document.addEventListener('keydown',handleKeyDown);
-	document.addEventListener('keyup',handleKeyUp);
+
+	if(pc){
+		document.addEventListener('keydown',handleKeyDown);
+		document.addEventListener('keyup',handleKeyUp);}
+
 	colision()
 	body.insertAdjacentHTML(`afterbegin`,`<audio loop src="audio/cyberFlute.mp3" autoplay></audio>`)
 }	
 
 function stopClick(){
-	stoped=1;button.innerHTML=`Start`
+	stoped=1;button.innerHTML=`Start`; stopIt=1
 	button.removeEventListener('mousedown',stopClick)
 	document.removeEventListener(`keydown`, stopEnter)
 	button.addEventListener('mousedown',startClick)
 	document.addEventListener(`keydown`, startEnter)
-	document.removeEventListener('keydown',handleKeyDown);
-	document.removeEventListener('keyup',handleKeyUp);
-	handleKeyUp()
+
+	if(pc){
+		document.removeEventListener('keydown',handleKeyDown);
+		document.removeEventListener('keyup',handleKeyUp);
+		handleKeyUp()}
+
 	body.removeChild(document.querySelector(`audio`))
 }
 function toNull(){
@@ -59,9 +68,10 @@ function colision(){
 	x+=Math.cos(startAngle*Math.PI/180)*speed;
 	y+=Math.sin(startAngle*Math.PI/180)*speed;
 
- 	if(y+30>=680||y<=0){startAngle=360-startAngle}
+ 	if(y+30>=680){startAngle=360-startAngle; y=650}
+ 	if(y<=0){startAngle=360-startAngle; y=0}
 
-  	if(x<=0){score[1]+=1;p1Score.textContent=score[1];toNull();stopClick();startAngle=0}
+	if(x<=0){score[1]+=1;p1Score.textContent=score[1];toNull();stopClick();startAngle=0}
 	if(x>=750){score[0]+=1;p2Score.textContent=score[0];toNull();stopClick();startAngle=180}
 
   	p1BarPos=Math.abs(p1BarCord-600)+65
@@ -100,21 +110,10 @@ function colision(){
 	if(stoped){return}else{ball.style.transform=`translate(${x}px,${y}px)`;requestAnimationFrame(colision)}
 }
 
-function handleKeyDown(event){if(keyDownTimer===null){keyDownTimer=setTimeout(repeatKey,keyRepeatDelay,event)}}
-
-function handleKeyUp(event){if(keyDownTimer!==null){clearTimeout(keyDownTimer);keyDownTimer=null}}
-
-function repeatKey(event){
-	event.preventDefault()
-	if(event.code=='KeyW'&&p1BarCord<=595){p1Bar.style.bottom=`${p1BarCord+=5}px`}
-	if(event.code=='KeyS'&&p1BarCord>=85){p1Bar.style.bottom=`${p1BarCord-=5}px`}
-	if(event.code=='ArrowUp'&&p2BarCord<=595){p2Bar.style.bottom=`${p2BarCord+=5}px`}
-	if(event.code=='ArrowDown'&&p2BarCord>=85){p2Bar.style.bottom=`${p2BarCord-=5}px`}
-	keyDownTimer=setTimeout(repeatKey,keyRepeatInterval,event)
-}
-
-let isMobile=/mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase());
-let mediaQueryList = window.matchMedia("(max-width: 767px)")
+let isMobile=/mobile|android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()),
+	isTablet=/tablet|ipad|android|kindle/i.test(navigator.userAgent.toLowerCase()),
+	isDesktop=!isMobile&&!isTablet,
+	mediaQueryList=window.matchMedia("(max-width: 767px)")
 
 if(isMobile||window.innerWith<768||mediaQueryList.matches){
 	let wrapper=document.querySelector(`.wrapper`),
@@ -124,13 +123,62 @@ if(isMobile||window.innerWith<768||mediaQueryList.matches){
 		p1Down=document.querySelector(`.p1Down`),
 		p2Up=document.querySelector(`.p2Up`),
 		p2Down=document.querySelector(`.p2Down`)
-	
-	body.style.background=`black`
 
-	p1Up.addEventListener(`click`,function(event){if(stoped==0&&p1BarCord<=595){p1Bar.style.bottom=`${p1BarCord+=15}px`}})	
-	p1Down.addEventListener(`click`,function(event){if(stoped==0&&p1BarCord>=85){p1Bar.style.bottom=`${p1BarCord-=15}px`}})
-	p2Up.addEventListener(`click`,function(event){if(stoped==0&&p2BarCord<=595){p2Bar.style.bottom=`${p2BarCord+=15}px`}})
-	p2Down.addEventListener(`click`,function(event){if(stoped==0&&p2BarCord>=85){p2Bar.style.bottom=`${p2BarCord-=15}px`}})
+	p1Up.addEventListener(`touchstart`,function(){stopIt=0; p1UpFunc()})
+	p1Up.addEventListener(`touchend`,function(){stopIt=1})
+
+	function p1UpFunc(){
+		if(stoped==0&&p1BarCord<=595){if(stopIt==0){p1Bar.style.bottom=`${p1BarCord+=5}px`
+			setTimeout(p1UpFunc,10)}}}
+
+	p1Down.addEventListener(`touchstart`,function(){stopIt=0;p1DownFunc()})
+	p1Down.addEventListener(`touchend`,function(){stopIt=1})
+
+	function p1DownFunc(){
+		if(stoped==0&&p1BarCord>=85){if(stopIt==0){p1Bar.style.bottom=`${p1BarCord-=5}px`
+			setTimeout(p1DownFunc,10)}}}	
+
+	p2Up.addEventListener(`touchstart`,function(){stopIt=0; p2UpFunc()})
+	p2Up.addEventListener(`touchend`,function(){stopIt=1})
+
+	function p2UpFunc(){
+		if(stoped==0&&p2BarCord<=595){if(stopIt==0){p2Bar.style.bottom=`${p2BarCord+=5}px`
+			setTimeout(p2UpFunc,10)}}}	
+
+	p2Down.addEventListener(`touchstart`,function(){stopIt=0; p2DownFunc()})
+	p2Down.addEventListener(`touchend`,function(){stopIt=1})
+
+	function p2DownFunc(){
+		if(stoped==0&&p2BarCord>=85){if(stopIt==0){p2Bar.style.bottom=`${p2BarCord-=5}px`
+			setTimeout(p2DownFunc,10)}}}
+
+	wrapper.style.transform=`translate(-50%, -50%) scale(0.5,0.5)`
+
+	for(let pos of butt){pos.style.display=`block`}
+
+	for(let pos of buttons){
+		pos.style.cssText=`
+		width: 200px;
+		height: 50px;
+		border-radius: 25px;
+		fons-size: 40px;`
+	}	
+}else{
+	pc=1
+
+	handleKeyDown=function handleKeyDown(event){if(keyDownTimer===null){keyDownTimer=setTimeout(repeatKey,keyRepeatDelay,event)}}
+
+	handleKeyUp=function handleKeyUp(event){if(keyDownTimer!==null){clearTimeout(keyDownTimer);keyDownTimer=null}}
+	
+	repeatKey=function repeatKey(event){
+		event.preventDefault()
+		if(event.code=='KeyW'&&p1BarCord<=595){p1Bar.style.bottom=`${p1BarCord+=5}px`}
+		if(event.code=='KeyS'&&p1BarCord>=85){p1Bar.style.bottom=`${p1BarCord-=5}px`}
+		if(event.code=='ArrowUp'&&p2BarCord<=595){p2Bar.style.bottom=`${p2BarCord+=5}px`}
+		if(event.code=='ArrowDown'&&p2BarCord>=85){p2Bar.style.bottom=`${p2BarCord-=5}px`}
+		keyDownTimer=setTimeout(repeatKey,keyRepeatInterval,event)
+	}
+}
 
 
 		

@@ -179,18 +179,3 @@ if(isMobile||window.innerWith<768||mediaQueryList.matches){
 		keyDownTimer=setTimeout(repeatKey,keyRepeatInterval,event)
 	}
 }
-
-
-		
-	wrapper.style.transform=`translate(-50%, -50%) scale(0.5,0.5)`
-
-	for(let pos of butt){pos.style.display=`block`}
-
-	for(let pos of buttons){
-		pos.style.cssText=`
-		width: 200px;
-		height: 50px;
-		border-radius: 25px;
-		fons-size: 40px;`
-	}	
-}

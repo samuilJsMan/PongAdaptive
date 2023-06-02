@@ -68,8 +68,12 @@ body {
   background: -webkit-linear-gradient(315deg, #52d38e 0%, #0f69bd 100%);
   background: -o-linear-gradient(315deg, #52d38e 0%, #0f69bd 100%);
   background: linear-gradient(135deg, #52d38e 0%, #0f69bd 100%);
-  -ms-touch-action: manipulation;
-  touch-action: manipulation; }
+  -ms-touch-action: none;
+  touch-action: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
   body .wrapper {
     width: 800px;
     position: absolute;

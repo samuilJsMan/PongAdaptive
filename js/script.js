@@ -4,7 +4,7 @@ let p1Bar=document.querySelector(`.p1Bar`),p2Bar=document.querySelector(`.p2Bar`
 	ball=document.querySelector('.ball'), button=document.querySelector(`.start`), 
 	p1Score=document.querySelector(`.p1Score`),	p2Score=document.querySelector(`.p2Score`), 
 	restart=document.querySelector(`.restart`), gameSpaceInner=document.querySelector(`.gameSpaceInner`),
-	keyRepeatDelay=0, keyRepeatInterval=10, keyDownTimer=null, startAngle=0, angle, speed, x, stopIt=0, pc,
+	keyRepeatDelay=0, keyRepeatInterval=10, keyDownTimer=null, startAngle=1, angle, speed, x, stopIt=0, pc,
 	y, score=[0,0], stoped=1, p2BarCord, p1BarCord, p1BarPos, p2BarPos, body=document.querySelector(`body`),
 	handleKeyDown, handleKeyUp, repeatKey
 
@@ -71,15 +71,14 @@ function colision(){
  	if(y+30>=680){startAngle=360-startAngle; y=650}
  	if(y<=0){startAngle=360-startAngle; y=0}
 
-	if(x<=0){score[1]+=1;p1Score.textContent=score[1];toNull();stopClick();startAngle=0}
-	if(x>=750){score[0]+=1;p2Score.textContent=score[0];toNull();stopClick();startAngle=180}
+	if(x<=0){score[1]+=1;p1Score.textContent=score[1];toNull();stopClick();startAngle=1}
+	if(x>=750){score[0]+=1;p2Score.textContent=score[0];toNull();stopClick();startAngle=179}
 
   	p1BarPos=Math.abs(p1BarCord-600)+65
   	p2BarPos=Math.abs(p2BarCord-600)+65
 
 	if(x>=725&&p2BarPos+90>y&&p2BarPos-90<y){
-		startAngle=180-startAngle
-		x=724
+		startAngle=180-startAngle;x=724
 		if(p2BarPos-74>=y){startAngle+=45
 		}else if(p2BarPos+74<=y){startAngle-=45
 		}else if(p2BarPos-59>=y){startAngle+=35
@@ -93,8 +92,7 @@ function colision(){
 		}if(speed<=25){speed+=speed/30}}
 
 	if(x<=25&&p1BarPos+90>y&&p1BarPos-90<y){
-		startAngle=180-startAngle
-		x=26
+		startAngle=180-startAngle;x=26
 		if(p1BarPos-74>=y){startAngle-=45
 		}else if(p1BarPos+74<=y){startAngle+=45
 		}else if(p1BarPos-59>=y){startAngle-=35
@@ -124,52 +122,39 @@ if(isMobile||window.innerWith<768||mediaQueryList.matches){
 		p2Up=document.querySelector(`.p2Up`),
 		p2Down=document.querySelector(`.p2Down`)
 
-	p1Up.addEventListener(`touchstart`,function(){stopIt=0; p1UpFunc()})
-	p1Up.addEventListener(`touchend`,function(){stopIt=1})
+	p1Up.addEventListener(`pointerdown`,function(){stopIt=0; p1UpFunc()})
+	p1Up.addEventListener(`pointerup`,function(){stopIt=1})
 
-	function p1UpFunc(){
-		if(stoped==0&&p1BarCord<=595){if(stopIt==0){p1Bar.style.bottom=`${p1BarCord+=5}px`
-			setTimeout(p1UpFunc,10)}}}
+	function p1UpFunc(){if(stoped==0&&p1BarCord<=595){if(stopIt==0){
+		p1Bar.style.bottom=`${p1BarCord+=7.4286}px`;requestAnimationFrame(p1UpFunc)}}}
 
-	p1Down.addEventListener(`touchstart`,function(){stopIt=0;p1DownFunc()})
-	p1Down.addEventListener(`touchend`,function(){stopIt=1})
+	p1Down.addEventListener(`pointerdown`,function(){stopIt=0;p1DownFunc()})
+	p1Down.addEventListener(`pointerup`,function(){stopIt=1})
 
-	function p1DownFunc(){
-		if(stoped==0&&p1BarCord>=85){if(stopIt==0){p1Bar.style.bottom=`${p1BarCord-=5}px`
-			setTimeout(p1DownFunc,10)}}}	
+	function p1DownFunc(){if(stoped==0&&p1BarCord>=85){if(stopIt==0)
+		{p1Bar.style.bottom=`${p1BarCord-=7.4286}px`;requestAnimationFrame(p1DownFunc)}}}	
 
-	p2Up.addEventListener(`touchstart`,function(){stopIt=0; p2UpFunc()})
-	p2Up.addEventListener(`touchend`,function(){stopIt=1})
+	p2Up.addEventListener(`pointerdown`,function(){stopIt=0; p2UpFunc()})
+	p2Up.addEventListener(`pointerup`,function(){stopIt=1})
 
-	function p2UpFunc(){
-		if(stoped==0&&p2BarCord<=595){if(stopIt==0){p2Bar.style.bottom=`${p2BarCord+=5}px`
-			setTimeout(p2UpFunc,10)}}}	
+	function p2UpFunc(){if(stoped==0&&p2BarCord<=595){if(stopIt==0)
+		{p2Bar.style.bottom=`${p2BarCord+=7.4286}px`;requestAnimationFrame(p2UpFunc)}}}	
 
-	p2Down.addEventListener(`touchstart`,function(){stopIt=0; p2DownFunc()})
-	p2Down.addEventListener(`touchend`,function(){stopIt=1})
+	p2Down.addEventListener(`pointerdown`,function(){stopIt=0; p2DownFunc()})
+	p2Down.addEventListener(`pointerup`,function(){stopIt=1})
 
-	function p2DownFunc(){
-		if(stoped==0&&p2BarCord>=85){if(stopIt==0){p2Bar.style.bottom=`${p2BarCord-=5}px`
-			setTimeout(p2DownFunc,10)}}}
+	function p2DownFunc(){if(stoped==0&&p2BarCord>=85){if(stopIt==0)
+		{p2Bar.style.bottom=`${p2BarCord-=7.4286}px`;requestAnimationFrame(p2DownFunc)}}}
 
 	wrapper.style.transform=`translate(-50%, -50%) scale(0.5,0.5)`
 
 	for(let pos of butt){pos.style.display=`block`}
+	for(let pos of buttons){pos.style.cssText=`width:300px ;height:50px; border-radius:25px; font-size:38px;`}	
 
-	for(let pos of buttons){
-		pos.style.cssText=`
-		width: 200px;
-		height: 50px;
-		border-radius: 25px;
-		fons-size: 40px;`
-	}	
 }else{
 	pc=1
-
 	handleKeyDown=function handleKeyDown(event){if(keyDownTimer===null){keyDownTimer=setTimeout(repeatKey,keyRepeatDelay,event)}}
-
 	handleKeyUp=function handleKeyUp(event){if(keyDownTimer!==null){clearTimeout(keyDownTimer);keyDownTimer=null}}
-	
 	repeatKey=function repeatKey(event){
 		event.preventDefault()
 		if(event.code=='KeyW'&&p1BarCord<=595){p1Bar.style.bottom=`${p1BarCord+=5}px`}

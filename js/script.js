@@ -4,7 +4,7 @@ let p1Bar=document.querySelector(`.p1Bar`),p2Bar=document.querySelector(`.p2Bar`
 	ball=document.querySelector('.ball'), button=document.querySelector(`.start`), 
 	p1Score=document.querySelector(`.p1Score`),	p2Score=document.querySelector(`.p2Score`), 
 	restart=document.querySelector(`.restart`), gameSpaceInner=document.querySelector(`.gameSpaceInner`),
-	keyRepeatDelay=0, keyRepeatInterval=10, keyDownTimer=null, startAngle=1, angle, speed, x, stopIt=0, pc,
+	keyRepeatDelay=0, keyRepeatInterval=10, keyDownTimer=null, startAngle=5, angle, speed, x, stopIt=0, pc,
 	y, score=[0,0], stoped=1, p2BarCord, p1BarCord, p1BarPos, p2BarPos, body=document.querySelector(`body`),
 	handleKeyDown, handleKeyUp, repeatKey
 
@@ -71,8 +71,8 @@ function colision(){
  	if(y+30>=680){startAngle=360-startAngle; y=650}
  	if(y<=0){startAngle=360-startAngle; y=0}
 
-	if(x<=0){score[1]+=1;p1Score.textContent=score[1];toNull();stopClick();startAngle=1}
-	if(x>=750){score[0]+=1;p2Score.textContent=score[0];toNull();stopClick();startAngle=179}
+	if(x<=0){score[1]+=1;p1Score.textContent=score[1];toNull();stopClick();startAngle=5}
+	if(x>=750){score[0]+=1;p2Score.textContent=score[0];toNull();stopClick();startAngle=175}
 
   	p1BarPos=Math.abs(p1BarCord-600)+65
   	p2BarPos=Math.abs(p2BarCord-600)+65

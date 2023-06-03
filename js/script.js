@@ -71,8 +71,8 @@ function colision(){
  	if(y+30>=680){startAngle=360-startAngle; y=650}
  	if(y<=0){startAngle=360-startAngle; y=0}
 
-	if(x<=0){score[1]+=1;p1Score.textContent=score[0];toNull();stopClick();startAngle=5}
-	if(x>=750){score[0]+=1;p2Score.textContent=score[1];toNull();stopClick();startAngle=175}
+	if(x<=0){score[1]+=1;p2Score.textContent=score[1];toNull();stopClick();startAngle=5}
+	if(x>=750){score[0]+=1;p1Score.textContent=score[0];toNull();stopClick();startAngle=175}
 
   	p1BarPos=Math.abs(p1BarCord-600)+65
   	p2BarPos=Math.abs(p2BarCord-600)+65

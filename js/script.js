@@ -35,7 +35,7 @@ function startClick(){
 		document.addEventListener('keyup',handleKeyUp);}
 
 	colision()
-	body.insertAdjacentHTML(`afterbegin`,`<audio loop src="audio/cyberFlute.mp3" autoplay></audio>`)
+	//body.insertAdjacentHTML(`afterbegin`,`<audio loop src="audio/cyberFlute.mp3" autoplay></audio>`)
 }	
 
 function stopClick(){
@@ -50,7 +50,7 @@ function stopClick(){
 		document.removeEventListener('keyup',handleKeyUp);
 		handleKeyUp()}
 
-	body.removeChild(document.querySelector(`audio`))
+	//body.removeChild(document.querySelector(`audio`))
 }
 function toNull(){
 	x=375; y=325; speed=5; p1BarCord=340; p2BarCord=340;
